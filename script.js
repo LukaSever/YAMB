@@ -9,6 +9,7 @@ if (!trenutniJezik) {
 const zaglavlja = ["YAMB", "", "", "", "N", "R", "D", "", "", "O", "M", "S"];
 const broj = zaglavlja.length;
 let zvuk;
+
 let kocke = ['?', '?', '?', '?', '?', '?'];
 let zadrzi = [false, false, false, false, false, false];
 let brojBacanja = 0;
