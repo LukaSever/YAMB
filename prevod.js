@@ -11,6 +11,8 @@ const prevod = {
             kontakt: "Kontakt",
             poruka: "Unesite svoju poruku...",
             posalji: "Pošalji",
+            omoguci_kockice: "Omogući kockice",
+            onemoguci_kockice: "Onemogući kockice",
             izlaz: "Izlaz",
             nazad: "Nazad",
             pravila_igre: "PRAVILA IGRE"
@@ -20,11 +22,13 @@ const prevod = {
                 title: "OPŠTA PRAVILA",
                 button_title: "Opšta",
                 box: [
+                    "Igra sadrži različite varijacije broja kolona (ova tabela ima 10 kolona).",
+                    "\u00A0 Igrači sami mogu odabrati koja polja će popunjavati, ukoliko ne žele sva.",
                     "Za igru je potrebno 6 kockica.",
                     "Igrač ima pravo da baca 3 puta.",
                     "\u00A0 Osim kada popunjava ručnu kolonu, tada sme da baci samo jednom.",
                     "Pri svakom bacanju odvaja kockice koje mu odgovaraju, a preostale baca ponovo.",
-                    "Na kraju trećeg bacanja odvaja 5 kockica koje mu najviše odgovaraju i njihov zbir upisuje u polje."
+                    "Na kraju trećeg bacanja odvaja kockice koje mu najviše odgovaraju (najviše 5) i njihov zbir upisuje u polje."
                 ]
             },
             objasnjenja_kolona: {
@@ -144,6 +148,8 @@ const prevod = {
             kontakt: "Contact",
             poruka: "Enter your message...",
             posalji: "Send",
+            omoguci_kockice: "Enable dice",
+            onemoguci_kockice: "Disable dice",
             izlaz: "Exit",
             nazad: "Back",
             pravila_igre: "GAME RULES"
@@ -153,11 +159,13 @@ const prevod = {
                 title: "GENERAL RULES",
                 button_title: "General",
                 box: [
+                    "The game includes different variations in the number of columns (this table has 10 columns).",
+                    "\u00A0 Players can choose which fields to fill in if they do not want to fill in all of them.",
                     "The game requires 6 dice.",
                     "The player may throw up to 3 times.",
                     "\u00A0 Except when filling in the hand column, where the player can only throw once.",
                     "After each throw, the player sets aside the dice that suit them and rethrows the remaining ones.",
-                    "At the end of the third throw, the player sets aside the 5 dice that suit them best and records their sum."
+                    "At the end of the third roll, they set aside the dice that suit them best (up to 5) and write their sum in the field."
                 ]
             },
             objasnjenja_kolona: {
@@ -277,6 +285,8 @@ const prevod = {
             kontakt: "Kontakt",
             poruka: "Unesite svoju poruku...",
             posalji: "Pošalji",
+            omoguci_kockice: "Omogući kockice",
+            onemoguci_kockice: "Onemogući kockice",
             izlaz: "Izlaz",
             nazad: "Natrag",
             pravila_igre: "PRAVILA IGRE"
@@ -286,11 +296,13 @@ const prevod = {
                 title: "OPĆA PRAVILA",
                 button_title: "Opća",
                 box: [
+                    "Igra sadrži različite varijante broja kolona (ova tablica ima 10 kolona).",
+                    "\u00A0 Igrači sami mogu odabrati koja polja će popunjavati, ukoliko ne žele sva.",
                     "Za igru je potrebno 6 kockica.",
                     "Igrač ima pravo baciti 3 puta.",
                     "\u00A0 Osim kada popunjava ručnu kolonu, tada smije baciti samo jednom.",
                     "Pri svakom bacanju odvaja kockice koje mu odgovaraju, a preostale baca ponovno.",
-                    "Na kraju trećeg bacanja odvaja 5 kockica koje mu najviše odgovaraju i njihov zbroj upisuje u polje."
+                    "Na kraju trećeg bacanja odvaja kockice koje mu najviše odgovaraju (najviše 5) i njihov zbroj upisuje u polje."
                 ]
             },
             objasnjenja_kolona: {
@@ -410,6 +422,8 @@ const prevod = {
             kontakt: "Kontakt",
             poruka: "Unesite svoju poruku...",
             posalji: "Pošalji",
+            omoguci_kockice: "Omogući kockice",
+            onemoguci_kockice: "Onemogući kockice",
             izlaz: "Izlaz",
             nazad: "Nazad",
             pravila_igre: "PRAVILA IGRE"
@@ -419,11 +433,13 @@ const prevod = {
                 title: "OPĆA PRAVILA",
                 button_title: "Opća",
                 box: [
+                    "Igra sadrži različite varijacije broja kolona (ova tabela ima 10 kolona).",
+                    "\u00A0 Igrači sami mogu odabrati koja polja će popunjavati, ukoliko ne žele sva.",
                     "Za igru je potrebno 6 kockica.",
                     "Igrač ima pravo baciti 3 puta.",
                     "\u00A0 Osim kada popunjava ručnu kolonu, tada smije baciti samo jednom.",
                     "Pri svakom bacanju odvaja kockice koje mu odgovaraju, a preostale baca ponovno.",
-                    "Na kraju trećeg bacanja odvaja 5 kockica koje mu najviše odgovaraju i njihov zbir upisuje u polje."
+                    "Na kraju trećeg bacanja odvaja kockice koje mu najviše odgovaraju (najviše 5) i njihov zbir upisuje u polje."
                 ]
             },
             objasnjenja_kolona: {
@@ -543,6 +559,8 @@ const prevod = {
             kontakt: "Kontakt",
             poruka: "Vnesete ja vašata poraka...",
             posalji: "Isprati",
+            omoguci_kockice: "Ovozmoži kocki",
+            onemoguci_kockice: "Onevozmoži kocki",
             izlaz: "Izlez",
             nazad: "Nazad",
             pravila_igre: "PRAVILA NA IGRATA"
@@ -552,11 +570,13 @@ const prevod = {
                 title: "OPŠTI PRAVILA",
                 button_title: "Opšti",
                 box: [
+                    "Igrata sodrži različni varijacii vo brojot na koloni (ova tabela ima 10 koloni).",
+                    "\u00A0 Igračite sami možat da izberat koi polinja ke gi popolnat, dokolku ne sakaat da gi popolnat site.",
                     "Za igrata se potrebni 6 kockici.",
                     "Igračot ima pravo da frli 3 pati.",
                     "\u00A0 Osven koga ja popolnuva račnata kolona, togaš sme da frli samo eden pat.",
                     "Pri sekoe frlanje gi odvojuva kockicite što mu odgovaraat, a ostanatite gi frla povtorno.",
-                    "Na krajot od tretoto frlanje gi odvojuva 5 kockici što mu najmnogu odgovaraat i nivniot zbir go zapišuva vo pole."
+                    "Na krajot od tretoto frlanje gi odvojuva kockite što najmnogu mu odgovaraat (najmnogu 5) i nivniot zbir go zapišuva vo poleto."
                 ]
             },
             objasnjenja_kolona: {
@@ -676,6 +696,8 @@ const prevod = {
             kontakt: "Kontakt",
             poruka: "Vnesite svoje sporočilo...",
             posalji: "Pošlji",
+            omoguci_kockice: "Omogoči kocke",
+            onemoguci_kockice: "Onemogoči kocke",
             izlaz: "Izhod",
             nazad: "Nazaj",
             pravila_igre: "PRAVILA IGRE"
@@ -685,11 +707,13 @@ const prevod = {
                 title: "SPLOŠNA PRAVILA",
                 button_title: "Splošna",
                 box: [
+                    "Igra vsebuje različne variante števila stolpcev (ta tabela ima 10 stolpcev).",
+                    "\u00A0 Igralci lahko sami izberejo, katera polja bodo izpolnili, če ne želijo izpolniti vseh.",
                     "Za igro je potrebnih 6 kock.",
                     "Igralec ima pravico vreči trikrat.",
                     "\u00A0 Razen kadar izpolnjuje ročno kolono, sme vreči samo enkrat.",
                     "Pri vsakem metu loči kocke, ki mu ustrezajo, preostale pa vrže ponovno.",
-                    "Ob koncu tretjega meta loči 5 kock, ki mu najbolj ustrezajo, in njihov seštevek zapiše v polje."
+                    "Na koncu tretjega meta izbere kocke, ki mu najbolj ustrezajo (največ 5), in njihov seštevek vpiše v polje."
                 ]
             },
             objasnjenja_kolona: {
@@ -809,6 +833,8 @@ const prevod = {
             kontakt: "Kontakt",
             poruka: "Unesite svoju poruku...",
             posalji: "Pošalji",
+            omoguci_kockice: "Omogući kockice",
+            onemoguci_kockice: "Onemogući kockice",
             izlaz: "Izlaz",
             nazad: "Nazad",
             pravila_igre: "PRAVILA IGRE"
@@ -818,11 +844,13 @@ const prevod = {
                 title: "OPŠTA PRAVILA",
                 button_title: "Opšta",
                 box: [
+                    "Igra sadrži različite varijacije broja kolona (ova tabela ima 10 kolona).",
+                    "\u00A0 Igrači sami mogu odabrati koja polja će popunjavati, ukoliko ne žele sva.",
                     "Za igru je potrebno 6 kockica.",
                     "Igrač ima pravo da baca 3 puta.",
                     "\u00A0 Osim kada popunjava ručnu kolonu, tada smije da baci samo jednom.",
                     "Pri svakom bacanju odvaja kockice koje mu odgovaraju, a preostale baca ponovo.",
-                    "Na kraju trećeg bacanja odvaja 5 kockica koje mu najviše odgovaraju i njihov zbir upisuje u polje."
+                    "Na kraju trećeg bacanja odvaja kockice koje mu najviše odgovaraju (najviše 5) i njihov zbir upisuje u polje."
                 ]
             },
             objasnjenja_kolona: {
