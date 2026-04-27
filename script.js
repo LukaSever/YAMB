@@ -135,6 +135,10 @@ function slika(tabela) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
+    ////
+    console.log("DOM READY");
+    console.log("CELIJE INIT:", document.querySelectorAll(".celija_kocke").length);
+
     zvuk = document.getElementById("zvuk_najave");
     if (zvuk) {
         zvuk.pause();
@@ -1140,6 +1144,10 @@ if (dugmePosalji) {
 }
 
 document.getElementById("kockice")?.addEventListener("click", () => {
+    ////
+    console.log("CLICK TOGGLE");
+    console.log("CELIJE CLICK:", document.querySelectorAll(".celija_kocke").length);
+
     kockeDugmiciVidljivost = !kockeDugmiciVidljivost;
 
     if (kockeDugmiciVidljivost)
