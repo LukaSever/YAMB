@@ -9,7 +9,6 @@ if (!trenutniJezik) {
 const zaglavlja = ["YAMB", "", "", "", "N", "R", "D", "", "", "O", "M", "S"];
 const broj = zaglavlja.length;
 let zvuk;
-
 let kocke = ['?', '?', '?', '?', '?', '?'];
 let zadrzi = [false, false, false, false, false, false];
 let brojBacanja = 0;
@@ -135,10 +134,6 @@ function slika(tabela) {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-    ////
-    console.log("DOM READY");
-    console.log("CELIJE INIT:", document.querySelectorAll(".celija_kocke").length);
-
     zvuk = document.getElementById("zvuk_najave");
     if (zvuk) {
         zvuk.pause();
@@ -1144,10 +1139,6 @@ if (dugmePosalji) {
 }
 
 document.getElementById("kockice")?.addEventListener("click", () => {
-    ////
-    console.log("CLICK TOGGLE");
-    console.log("CELIJE CLICK:", document.querySelectorAll(".celija_kocke").length);
-
     kockeDugmiciVidljivost = !kockeDugmiciVidljivost;
 
     if (kockeDugmiciVidljivost)
@@ -1158,6 +1149,7 @@ document.getElementById("kockice")?.addEventListener("click", () => {
     localStorage.setItem("kockeDugmiciVidljivost", kockeDugmiciVidljivost ? "1" : "0");
 
     azurirajKockiceUI();
+    window.history.back();
 });
 
 function sacuvajKockeDugmice() {
