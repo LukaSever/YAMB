@@ -1095,7 +1095,7 @@ document.querySelectorAll(".button_jezici").forEach(dugme => {
         if (jezik) {
             trenutniJezik = jezik;
             localStorage.setItem("jezik", jezik);
-            sessionStorage.setItem("promenjenJezik", "true");
+            sessionStorage.setItem("refres", "true");
 
             document.querySelectorAll(".button_jezici").forEach(btn => {
                btn.classList.remove("active");
@@ -1116,8 +1116,8 @@ function osveziJednom() {
 }
 
 window.addEventListener("pageshow", () => {
-    if (sessionStorage.getItem("promenjenJezik")) {
-        sessionStorage.removeItem("promenjenJezik");
+    if (sessionStorage.getItem("refres")) {
+        sessionStorage.removeItem("refres");
         sessionStorage.removeItem("osvezen");
     }
     osveziJednom();
@@ -1147,7 +1147,7 @@ document.getElementById("kockice")?.addEventListener("click", () => {
         sakrijKockeDugmice();
 
     localStorage.setItem("kockeDugmiciVidljivost", kockeDugmiciVidljivost ? "1" : "0");
-
+    sessionStorage.setItem("refres", "true");
     azurirajKockiceUI();
     window.history.back();
 });
