@@ -158,6 +158,7 @@ document.addEventListener("DOMContentLoaded", function () {
         suma4(tabela);
         slika(tabela);
         ucitajCelije(tabela);
+        osveziRezultate(tabela);
         ucitajKockeDugmice();
         kockeDugmiciVidljivost
             ? prikaziKockeDugmice()
@@ -213,21 +214,32 @@ document.addEventListener("DOMContentLoaded", function () {
         const celija = e.target.closest(".sve_celije");
         if (!celija)
             return;
-        if (brojBacanja === 0)
+        if (brojBacanja === 0 || !kockeDugmiciVidljivost)
             return;
         if (celija.dataset.locked === "1")
             return;
 
-        const rucneCelije = [
+        if (celija.style.backgroundColor === "red")
+            celija.style.backgroundColor = "white";
+
+        const najava = [
+            "celijaDiv1-4",
+            "celijaDiv2-84",
+            "celijaDiv2-94",
+            "celijaDiv3-4"
+        ]
+        if (celija.textContent === "")
+            if (najava.some(cls => celija.classList.contains(cls)))
+                if (zvuk)
+                    zvuk.play().catch(err => console.log('Greška pri puštanju zvuka:', err));
+
+        const rucna = [
             "celijaDiv1-5",
             "celijaDiv2-85",
             "celijaDiv2-95",
             "celijaDiv3-5"
         ]
-        const jeRucna = rucneCelije.some(cls =>
-            celija.classList.contains(cls)
-        );
-        if (jeRucna && Number(brojBacanja) !== 1)
+        if (rucna.some(cls => celija.classList.contains(cls)) && Number(brojBacanja) !== 1)
             return;
 
         const red = celija.parentNode;
@@ -252,11 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
         celija.textContent = zbir;
         celija.dataset.locked = "1";
 
-        m(tabela);
-        suma1(tabela);
-        suma2(tabela);
-        suma3(tabela);
-        suma4(tabela);
+        osveziRezultate(tabela);
         sacuvajCeliju(redID, kolona, zbir);
         resetBacanja();
     });
@@ -525,11 +533,7 @@ function div3(tabela) {
 
                 sacuvajCeliju(poslednji.redID, poslednji.kolona, "");
                 history = [];
-                m(tabela);
-                suma1(tabela);
-                suma2(tabela);
-                suma3(tabela);
-                suma4(tabela);
+                osveziRezultate(tabela);
                 azurirajBacanjeUI();
                 prikaziKocke();
             };
@@ -632,11 +636,11 @@ function dodavanjeBrojeva(e) {
     const celija = e.target;
     const red = celija.parentNode;
 
-    if (!mozeInterakcija(red, celija))
-        return;
+    if (!proveraPravilaRedosleda(red, celija))
+        return false;
 
     celija.setAttribute("staraVrednost", celija.textContent);
-    celija.setAttribute("contenteditable", !kockeDugmiciVidljivost);
+    celija.setAttribute("contenteditable", kockeDugmiciVidljivost ? "false" : "true");
     celija.setAttribute("inputmode", "numeric");
     celija.setAttribute("pattern", "[0-9]*");
     celija.focus();
@@ -666,7 +670,7 @@ function dodavanjeBrojeva(e) {
                     }
                     obradaUnosa(celija, unos, red, staraVrednost, tabela);
                 }, "Zameni broj", "Vrati se", "yellow");
-            } else
+            } else if (celija.textContent === "" || celija.textContent !== staraVrednost)
                 obradaUnosa(celija, unos, red, staraVrednost, tabela);
         });
     }
@@ -758,11 +762,6 @@ function obradaUnosa(celija, unos, red, staraVrednost, tabela) {
         while (celija.firstChild)
             celija.removeChild(celija.firstChild);
 
-        m(tabela);
-        suma1(tabela);
-        suma2(tabela);
-        suma3(tabela);
-        suma4(tabela);
         return;
     }
 
@@ -795,11 +794,7 @@ function obradaUnosa(celija, unos, red, staraVrednost, tabela) {
         celija.textContent = unos;
     }
     celija.setAttribute("contenteditable", "false");
-    m(tabela);
-    suma1(tabela);
-    suma2(tabela);
-    suma3(tabela);
-    suma4(tabela);
+    osveziRezultate(tabela);
 }
 
 function daLiImaUnosa(novaCelija) {
@@ -813,6 +808,14 @@ function daLiImaUnosa(novaCelija) {
         }
     }
     return {rezultat, imaUnosa};
+}
+
+function osveziRezultate(tabela) {
+    m(tabela);
+    suma1(tabela);
+    suma2(tabela);
+    suma3(tabela);
+    suma4(tabela);
 }
 
 function dodajOkvir(tabela, redIndeks, kolonaIndeks, ivica) {
@@ -1258,14 +1261,25 @@ function ful(k) {
     let map = {};
     k.forEach(v => map[v] = (map[v] || 0) + 1);
 
+    let unosi = Object.entries(map)
+        .map(([vrednost, broj]) => [Number(vrednost), broj])
+        .sort((a, b) => {
+            if (b[1] !== a[1])
+                return b[1] - a[1];
+            return b[0] - a[0];
+        });
+
     let triling = null;
     let par = null;
 
-    for (let broj in map) {
-        if (map[broj] === 3)
-            triling = Number(broj);
-        if (map[broj] === 2)
-            par = Number(broj);
+    for (let [vrednost, broj] of unosi) {
+        if (triling === null && broj >= 3) {
+            triling = vrednost;
+            continue;
+        }
+        if (par === null && broj >= 2) {
+            par = vrednost;
+        }
     }
 
     if (triling === null || par === null)
@@ -1273,7 +1287,6 @@ function ful(k) {
 
     return (triling * 3 + par * 2) + 30;
 }
-
 function poker(k) {
     let map = {};
     k.forEach(v => map[v] = (map[v] || 0) + 1);
@@ -1303,13 +1316,7 @@ function jamb(k) {
 }
 
 function mozeInterakcija(red, celija) {
-    if (celija.dataset.locked === "1")
-        return false;
-
-    if (!proveraPravilaRedosleda(red, celija))
-        return false;
-
-    return true;
+    return !(celija.dataset.locked === "1" || celija.textContent !== "" || !proveraPravilaRedosleda(red, celija))
 }
 
 if ('serviceWorker' in navigator) {
