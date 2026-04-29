@@ -14,8 +14,13 @@ let zadrzi = [false, false, false, false, false, false];
 let brojBacanja = 0;
 let kockeDugmiciVidljivost = false;
 let bacanjeUToku = false;
-let history = [];
+let poslednjiPotez = [];
 let mozeUndo = false;
+const sacuvanaIstorija = localStorage.getItem("poslednjiPotez");
+if (sacuvanaIstorija)
+    poslednjiPotez = JSON.parse(sacuvanaIstorija);
+else
+    poslednjiPotez = [];
 
 function zaglavlje1(tabela) {
     const novRed = tabela.insertRow();
@@ -166,6 +171,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     azurirajKockiceUI();
+    if (poslednjiPotez.length > 0)
+        mozeUndo = true;
 
     let dugme = document.getElementById(trenutniJezik);
     if (dugme)
@@ -249,18 +256,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const redID = red.id;
         const kolona = celija.cellIndex;
 
-        history = [{
+        poslednjiPotez = [{
             kocke: [...kocke],
             zadrzi: [...zadrzi],
             brojBacanja,
-            celija,
             redID,
             kolona,
             prethodnaVrednost: celija.textContent
         }];
 
-        const zbir = izracunajPoRedu(celija);
+        localStorage.setItem("poslednjiPotez", JSON.stringify(poslednjiPotez));
+        mozeUndo = true;
 
+        const zbir = izracunajPoRedu(celija);
         celija.textContent = zbir;
         celija.dataset.locked = "1";
 
@@ -406,8 +414,9 @@ function div2(tabela) {
 }
 
 function baciKocke(dugme) {
-    history = [];
-    mozeUndo = true;
+    poslednjiPotez = [];
+    localStorage.removeItem("poslednjiPotez");
+    mozeUndo = false;
 
     if (bacanjeUToku)
         return;
@@ -517,22 +526,33 @@ function div3(tabela) {
             dugme.onclick = () => {
                 if (!mozeUndo)
                     return;
-                if (history.length === 0)
+                if (poslednjiPotez.length === 0)
                     return;
 
-                const poslednji = history[0];
-                kocke = poslednji.kocke;
-                zadrzi = poslednji.zadrzi;
-                brojBacanja = poslednji.brojBacanja;
-
-                const celija = poslednji.celija;
+                const poslednji = poslednjiPotez[0];
+                const tabela = document.querySelector("table");
+                const red = tabela.rows[poslednji.redID];
+                const celija = red?.cells[poslednji.kolona];
                 if (celija) {
                     celija.textContent = "";
                     delete celija.dataset.locked;
                 }
 
+                kocke = poslednji.kocke;
+                zadrzi = poslednji.zadrzi;
+                brojBacanja = poslednji.brojBacanja;
+
+                localStorage.setItem("jambStanje", JSON.stringify({
+                    kocke,
+                    zadrzi,
+                    brojBacanja,
+                    bacanjeUToku
+                }));
+
                 sacuvajCeliju(poslednji.redID, poslednji.kolona, "");
-                history = [];
+                poslednjiPotez = [];
+                localStorage.removeItem("poslednjiPotez");
+                mozeUndo = false;
                 osveziRezultate(tabela);
                 azurirajBacanjeUI();
                 prikaziKocke();
@@ -878,11 +898,13 @@ function novaPartija() {
 
         localStorage.removeItem("jambBaza");
         localStorage.removeItem("jambStanje");
+        localStorage.removeItem("poslednjiPotez");
         kocke = ['?', '?', '?', '?', '?', '?'];
         zadrzi = [false, false, false, false, false, false];
         brojBacanja = 0;
         bacanjeUToku = false;
-        history = [];
+        poslednjiPotez = [];
+        mozeUndo = false;
         prikaziKocke();
         azurirajBacanjeUI();
 
