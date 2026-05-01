@@ -352,6 +352,8 @@ function prikaziKocke() {
                 return;
 
             zadrzi[i - 1] = !zadrzi[i - 1];
+
+            sacuvajKockeDugmice();
             prikaziKocke();
         };
         celija.replaceChildren(kockica);
@@ -542,13 +544,7 @@ function div3(tabela) {
                 zadrzi = poslednji.zadrzi;
                 brojBacanja = poslednji.brojBacanja;
 
-                localStorage.setItem("jambStanje", JSON.stringify({
-                    kocke,
-                    zadrzi,
-                    brojBacanja,
-                    bacanjeUToku
-                }));
-
+                sacuvajKockeDugmice();
                 sacuvajCeliju(poslednji.redID, poslednji.kolona, "");
                 poslednjiPotez = [];
                 localStorage.removeItem("poslednjiPotez");
@@ -781,6 +777,9 @@ function obradaUnosa(celija, unos, red, staraVrednost, tabela) {
 
         while (celija.firstChild)
             celija.removeChild(celija.firstChild);
+
+        if (staraVrednost !== "")
+            osveziRezultate(tabela);
 
         return;
     }
@@ -1232,8 +1231,13 @@ function izracunajPoRedu(celija) {
 }
 
 function zbirBroja(k, broj) {
+    let brojac = 0;
     return k.reduce((sum, v) => {
-        return sum + (v === broj ? v : 0);
+        if (v === broj && brojac < 5) {
+            brojac++;
+            return sum + v;
+        }
+        return sum;
     }, 0);
 }
 
