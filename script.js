@@ -895,11 +895,9 @@ function novaPartija() {
         if (!obrisi)
             return;
 
-        ////
         const jambBaza = localStorage.getItem("jambBaza");
         const jambStanje = localStorage.getItem("jambStanje");
         const potez = localStorage.getItem("poslednjiPotez");
-
         if (jambBaza != null)
             localStorage.setItem("prethodna_jambBaza", jambBaza);
         if (jambStanje != null)
@@ -1357,7 +1355,6 @@ function mozeInterakcija(red, celija) {
     return !(celija.dataset.locked === "1" || celija.textContent !== "" || !proveraPravilaRedosleda(red, celija))
 }
 
-////
 const dugmePrethodnaPartija = document.getElementById("prethodna_partija");
 if (dugmePrethodnaPartija) {
     dugmePrethodnaPartija.addEventListener("click", () => {
@@ -1388,6 +1385,7 @@ if (dugmePrethodnaPartija) {
         else
             localStorage.removeItem("poslednjiPotez");
 
+        sessionStorage.setItem("refres", "true");
         window.history.back();
     });
 }
