@@ -895,6 +895,18 @@ function novaPartija() {
         if (!obrisi)
             return;
 
+        ////
+        const jambBaza = localStorage.getItem("jambBaza");
+        const jambStanje = localStorage.getItem("jambStanje");
+        const potez = localStorage.getItem("poslednjiPotez");
+
+        if (jambBaza != null)
+            localStorage.setItem("prethodna_jambBaza", jambBaza);
+        if (jambStanje != null)
+            localStorage.setItem("prethodno_jambStanje", jambStanje);
+        if (potez != null)
+            localStorage.setItem("prethodni_poslednjiPotez", potez);
+
         localStorage.removeItem("jambBaza");
         localStorage.removeItem("jambStanje");
         localStorage.removeItem("poslednjiPotez");
@@ -1343,6 +1355,41 @@ function jamb(k) {
 
 function mozeInterakcija(red, celija) {
     return !(celija.dataset.locked === "1" || celija.textContent !== "" || !proveraPravilaRedosleda(red, celija))
+}
+
+////
+const dugmePrethodnaPartija = document.getElementById("prethodna_partija");
+if (dugmePrethodnaPartija) {
+    dugmePrethodnaPartija.addEventListener("click", () => {
+        const prethodnaBaza = localStorage.getItem("prethodna_jambBaza");
+        const prethodnoStanje = localStorage.getItem("prethodno_jambStanje");
+        const prethodniPoslednjiPotez = localStorage.getItem("prethodni_poslednjiPotez");
+
+        if (prethodnaBaza == null || prethodnoStanje == null)
+            return;
+
+        const trenutnaBaza = localStorage.getItem("jambBaza");
+        const trenutnoStanje = localStorage.getItem("jambStanje");
+        const trenutniPoslednjiPotez = localStorage.getItem("poslednjiPotez");
+
+        if (trenutnaBaza != null)
+            localStorage.setItem("prethodna_jambBaza", trenutnaBaza);
+        if (trenutnoStanje != null)
+            localStorage.setItem("prethodno_jambStanje", trenutnoStanje);
+        if (trenutniPoslednjiPotez != null)
+            localStorage.setItem("prethodni_poslednjiPotez", trenutniPoslednjiPotez);
+        else
+            localStorage.removeItem("prethodni_poslednjiPotez");
+
+        localStorage.setItem("jambBaza", prethodnaBaza);
+        localStorage.setItem("jambStanje", prethodnoStanje);
+        if (prethodniPoslednjiPotez != null)
+            localStorage.setItem("poslednjiPotez", prethodniPoslednjiPotez);
+        else
+            localStorage.removeItem("poslednjiPotez");
+
+        window.history.back();
+    });
 }
 
 if ('serviceWorker' in navigator) {

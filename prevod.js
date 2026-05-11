@@ -13,6 +13,7 @@ const prevod = {
             posalji: "Pošalji",
             omoguci_kockice: "Omogući kockice",
             onemoguci_kockice: "Onemogući kockice",
+            prethodna_partija: "Prethodna partija",
             izlaz: "Izlaz",
             nazad: "Nazad",
             pravila_igre: "PRAVILA IGRE"
@@ -134,6 +135,7 @@ const prevod = {
                     "\u00A0 Kockice je moguće zadržati klikom na njih (ukoliko se na njima nalaze brojevi), nakon čega će postati žute. Ponovnim klikom kockica će postati bela i opet će biti spremna za bacanje.",
                     "\u00A0 Zeleno dugme služi za bacanje kockica. Na njemu se nalazi broj bacanja, a kockice se mogu baciti najviše 3 puta, osim pri popunjavanju ručne kolone, kada se mogu baciti samo jednom. Biće bačene samo one kockice koje nisu zadržane klikom (bele kockice).",
                     "\u00A0 Žuto dugme sa strelicom je dugme za poništavanje unosa. Klikom na njega iz polja će biti obrisana uneta vrednost, a kocke i broj bacanja će biti vraćeni na stanje pre unosa. Ukoliko je nakon unosa kliknuto dugme za bacanje kockica, dugme za vraćanje upisa neće moći da vrati prethodno stanje kockica.",
+                    "Klikom na dugme \"Prethodna partija\" biće vraćene vrednosti poslednje obrisane partije (ukoliko je bilo prethodne partije).",
                     "Prilikom unošenja broja u najavu čuće se zvuk (ako je uključen)."
                 ]
             }
@@ -153,6 +155,7 @@ const prevod = {
             posalji: "Send",
             omoguci_kockice: "Enable dice",
             onemoguci_kockice: "Disable dice",
+            prethodna_partija: "Previous game",
             izlaz: "Exit",
             nazad: "Back",
             pravila_igre: "GAME RULES"
@@ -274,6 +277,7 @@ const prevod = {
                     "\u00A0 Dice can be held by clicking on them (if they show numbers), after which they will turn yellow. By clicking again, the die will turn white and will be ready to roll again.",
                     "\u00A0 The green button is used to roll the dice. It displays the number of rolls, and the dice can be rolled up to 3 times, except when filling in the manual column, when they can be rolled only once. Only the dice that are not held (white dice) will be rolled.",
                     "\u00A0 The yellow button with an arrow is the undo input button. By clicking it, the entered value will be cleared from the field, and the dice and the number of rolls will be restored to the state before the input. If the roll button was pressed after entering a value, the undo button will not be able to restore the previous state of the dice.",
+                    "By clicking the \"Previous game\" button, the values of the last deleted game will be restored (if there was a previous game).",
                     "When a number is entered in the announcement, a sound will play (if enabled or turned up)."
                 ]
             }
@@ -293,6 +297,7 @@ const prevod = {
             posalji: "Pošalji",
             omoguci_kockice: "Omogući kockice",
             onemoguci_kockice: "Onemogući kockice",
+            prethodna_partija: "Prethodna igra",
             izlaz: "Izlaz",
             nazad: "Natrag",
             pravila_igre: "PRAVILA IGRE"
@@ -414,6 +419,7 @@ const prevod = {
                     "\u00A0 Kockice je moguće zadržati klikom na njih (ako se na njima nalaze brojevi), nakon čega će postati žute. Ponovnim klikom kockica će postati bijela i ponovno će biti spremna za bacanje.",
                     "\u00A0 Zeleni gumb služi za bacanje kockica. Na njemu se nalazi broj bacanja, a kockice se mogu baciti najviše 3 puta, osim pri popunjavanju ručne kolone, kada se mogu baciti samo jednom. Bacit će se samo one kockice koje nisu zadržane (bijele kockice).",
                     "\u00A0 Žuti gumb sa strelicom je gumb za poništavanje unosa. Klikom na njega iz polja će se obrisati unesena vrijednost, a kockice i broj bacanja vratit će se na stanje prije unosa. Ako je nakon unosa pritisnut gumb za bacanje kockica, gumb za poništavanje neće moći vratiti prethodno stanje kockica.",
+                    "Klikom na gumb \"Prethodna igra\" bit će vraćene vrijednosti posljednje obrisane igre (ako je postojala prethodna igra).",
                     "Prilikom unošenja broja u najavu čut će se zvuk (ako je uključen)."
                 ]
             }
@@ -433,6 +439,7 @@ const prevod = {
             posalji: "Pošalji",
             omoguci_kockice: "Omogući kockice",
             onemoguci_kockice: "Onemogući kockice",
+            prethodna_partija: "Prethodna partija",
             izlaz: "Izlaz",
             nazad: "Nazad",
             pravila_igre: "PRAVILA IGRE"
@@ -554,6 +561,7 @@ const prevod = {
                     "\u00A0 Kockice je moguće zadržati klikom na njih (ako se na njima nalaze brojevi), nakon čega će postati žute. Ponovnim klikom kockica će postati bijela i ponovo će biti spremna za bacanje.",
                     "\u00A0 Zeleno dugme služi za bacanje kockica. Na njemu se nalazi broj bacanja, a kockice se mogu baciti najviše 3 puta, osim pri popunjavanju ručne kolone, kada se mogu baciti samo jednom. Bacit će se samo one kockice koje nisu zadržane (bijele kockice).",
                     "\u00A0 Žuto dugme sa strelicom je dugme za poništavanje unosa. Klikom na njega iz polja će se obrisati unesena vrijednost, a kockice i broj bacanja vratit će se na stanje prije unosa. Ako je nakon unosa pritisnuto dugme za bacanje kockica, dugme za poništavanje neće moći vratiti prethodno stanje kockica.",
+                    "Klikom na dugme \"Prethodna partija\" biće vraćene vrijednosti posljednje obrisane partije (ako je postojala prethodna partija).",
                     "Prilikom unošenja broja u najavu čut će se zvuk (ako je uključen)."
                 ]
             }
@@ -573,6 +581,7 @@ const prevod = {
             posalji: "Isprati",
             omoguci_kockice: "Ovozmoži kocki",
             onemoguci_kockice: "Onevozmoži kocki",
+            prethodna_partija: "Prethodna partija",
             izlaz: "Izlez",
             nazad: "Nazad",
             pravila_igre: "PRAVILA NA IGRATA"
@@ -694,6 +703,7 @@ const prevod = {
                     "\u00A0 Kockite može da se zadržat so kliknuvanje na niv (dokolu prikažuvaat broevi), po što ke stanat žolti. So povtorno kliknuvanje, kockata ke stane bela i povtorno ke bide podgotvena za frlanje.",
                     "\u00A0 Zelenoto kopče služi za frlanje na kockite. Na nego se prikažuva brojot na frlanja, a kockite može da se frlat najmnogu 3 pati, osven pri popolnuvanje na račnata kolona, koga može da se frlat samo ednaš. Ke se frlat samo onie kocki što ne se zadržani (beli kocki).",
                     "\u00A0 Žoltoto kopče so strelka e kopče za poništuvanje na vnesot. So kliknuvanje na nego, vnesenata vrednost ke se izbriše od poleto, a kockite i brojot na frlanja ke se vratat vo sostojbata pred vnesot. Dokolu po vnesot e pritisnato kopčeto za frlanje, kopčeto za poništuvanje nema da može da ja vrati prethodnata sostojba na kockite.",
+                    "So klik na kopčeto \"Prethodna partija\" ke bidat vrateni vrednostite od poslednata izbrisana partija (dokolu postoeala prethodna partija).",
                     "Pri vnesuvanje na broj vo najavata, ke se sluša zvuk (ako e vkluchen)."
                 ]
             }
@@ -713,6 +723,7 @@ const prevod = {
             posalji: "Pošlji",
             omoguci_kockice: "Omogoči kocke",
             onemoguci_kockice: "Onemogoči kocke",
+            prethodna_partija: "Prejšnja igra",
             izlaz: "Izhod",
             nazad: "Nazaj",
             pravila_igre: "PRAVILA IGRE"
@@ -834,6 +845,7 @@ const prevod = {
                     "\u00A0 Kocke lahko zadržite s klikom nanje (če prikazujejo številke), nato postanejo rumene. S ponovnim klikom kocka postane bela in je ponovno pripravljena za metanje.",
                     "\u00A0 Zeleni gumb služi za metanje kock. Na njem je prikazano število metov, kocke pa lahko vržete največ 3-krat, razen pri izpolnjevanju ročnega stolpca, ko jih lahko vržete samo enkrat. Vržejo se samo kocke, ki niso zadržane (bele kocke).",
                     "\u00A0 Rumeni gumb s puščico je gumb za razveljavitev vnosa. S klikom nanj se vnesena vrednost izbriše iz polja, kocke in število metov pa se vrnejo v stanje pred vnosom. Če je bil po vnosu pritisnjen gumb za metanje kock, gumb za razveljavitev ne bo mogel obnoviti prejšnjega stanja kock.",
+                    "S klikom na gumb \"Prejšnja igra\" bodo obnovljene vrednosti zadnje izbrisane igre (če je obstajala prejšnja igra).",
                     "Ob vnosu številke v napoved se bo slišal zvok (če je vklopljen)."
                 ]
             }
@@ -853,6 +865,7 @@ const prevod = {
             posalji: "Pošalji",
             omoguci_kockice: "Omogući kockice",
             onemoguci_kockice: "Onemogući kockice",
+            prethodna_partija: "Prethodna partija",
             izlaz: "Izlaz",
             nazad: "Nazad",
             pravila_igre: "PRAVILA IGRE"
@@ -974,6 +987,7 @@ const prevod = {
                     "\u00A0 Kockice je moguće zadržati klikom na njih (ako se na njima nalaze brojevi), nakon čega će postati žute. Ponovnim klikom kockica će postati bijela i ponovo će biti spremna za bacanje.",
                     "\u00A0 Zeleno dugme služi za bacanje kockica. Na njemu se nalazi broj bacanja, a kockice se mogu baciti najviše 3 puta, osim pri popunjavanju ručne kolone, kada se mogu baciti samo jednom. Baciće se samo one kockice koje nijesu zadržane (bijele kockice).",
                     "\u00A0 Žuto dugme sa strelicom je dugme za poništavanje unosa. Klikom na njega iz polja će biti obrisana unesena vrijednost, a kockice i broj bacanja će biti vraćeni na stanje prije unosa. Ako je nakon unosa pritisnuto dugme za bacanje kockica, dugme za poništavanje neće moći da vrati prethodno stanje kockica.",
+                    "Klikom na dugme \"Prethodna partija\" biće vraćene vrijednosti posljednje obrisane partije (ako je postojala prethodna partija).",
                     "Prilikom unošenja broja u najavu čuće se zvuk (ako je uključen)."
                 ]
             }
