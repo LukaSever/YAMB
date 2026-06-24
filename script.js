@@ -224,8 +224,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         if (brojBacanja === 0 || !kockeDugmiciVidljivost)
             return;
-        if (celija.dataset.locked === "1")
-            return;
 
         if (celija.style.backgroundColor === "red")
             celija.style.backgroundColor = "white";
@@ -271,7 +269,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const zbir = izracunajPoRedu(celija);
         celija.textContent = zbir;
-        celija.dataset.locked = "1";
 
         osveziRezultate(tabela);
         sacuvajCeliju(redID, kolona, zbir);
@@ -536,10 +533,8 @@ function div3(tabela) {
                 const tabela = document.querySelector("table");
                 const red = tabela.rows[poslednji.redID];
                 const celija = red?.cells[poslednji.kolona];
-                if (celija) {
+                if (celija)
                     celija.textContent = "";
-                    delete celija.dataset.locked;
-                }
 
                 kocke = poslednji.kocke;
                 zadrzi = poslednji.zadrzi;
@@ -656,6 +651,8 @@ function dodavanjeBrojeva(e) {
 
     if (!proveraPravilaRedosleda(red, celija))
         return false;
+    if (kockeDugmiciVidljivost)
+        return;
 
     celija.setAttribute("staraVrednost", celija.textContent);
     celija.setAttribute("contenteditable", kockeDugmiciVidljivost ? "false" : "true");
@@ -937,12 +934,9 @@ function novaPartija() {
             for (let j = 1; j < tabela.rows[i].cells.length; j++) {
                 if ( j >= 1 && j <= 10 || i === 7 || i === 10 || i === 16)
                     tabela.rows[i].cells[j].textContent = "";
-                if (j >= 1 && j <= 9) {
-                    if ((i >= 1 && i <= 6) || (i >= 8 && i <= 9) || (i >= 11 && i <= 15)) {
+                if (j >= 1 && j <= 9)
+                    if ((i >= 1 && i <= 6) || (i >= 8 && i <= 9) || (i >= 11 && i <= 15))
                         tabela.rows[i].cells[j].style.backgroundColor = "white";
-                        tabela.rows[i].cells[j].dataset.locked = "0";
-                    }
-                }
             }
         }
 
@@ -1378,7 +1372,7 @@ function jamb(k) {
 }
 
 function mozeInterakcija(red, celija) {
-    return !(celija.dataset.locked === "1" || celija.textContent !== "" || !proveraPravilaRedosleda(red, celija))
+    return !(celija.textContent !== "" || !proveraPravilaRedosleda(red, celija))
 }
 
 const dugmePrethodnaPartija = document.getElementById("prethodna_partija");
@@ -1437,6 +1431,10 @@ function sacuvajPartiju() {
         poeni: ukupnoPoena,
         polja: localStorage.getItem("jambBaza")
     });
+
+    if (lista.length > 100)
+        lista.shift();
+
     localStorage.setItem("jambPartije", JSON.stringify(lista));
 }
 
@@ -1450,10 +1448,11 @@ function prikaziPartije() {
     ["datum", "vreme", "poeni"].forEach(kljuc => {
         const element = document.createElement("div");
         element.textContent = prevod[trenutniJezik].ui[kljuc];
+        element.classList.add("zaglavlje_liste_rezultata");
         div.appendChild(element);
     });
 
-    lista.forEach(p => {
+    [...lista].reverse().forEach(p => {
         const d = new Date(p.datum);
 
         const datum = d.toLocaleDateString(undefined, {

@@ -307,6 +307,12 @@ h2 {
     grid-template-columns: 40% 30% 30%;
     font-size: 16px;
     align-content: start;
+    gap: 8px 0;
+}
+
+.zaglavlje_liste_rezultata {
+    font-weight: bold;
+    background: #e0e0e0;
 }
 
 .uvuceno {
