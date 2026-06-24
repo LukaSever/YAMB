@@ -208,7 +208,8 @@ table tr th:last-child {
 #box_jezici,
 #box_pravila,
 #box_objasnjenje,
-#box_kontakt {
+#box_kontakt,
+#box_pregled_sacuvanih_partija {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -282,7 +283,8 @@ h2 {
 }
 
 .opis,
-#tekst_kontakt {
+#tekst_kontakt,
+#lista_partija {
     background-color: white;
     padding: 10px;
     width: 80%;
@@ -294,9 +296,17 @@ h2 {
     margin: 0 auto;
 }
 
-#tekst_kontakt {
+#tekst_kontakt,
+#lista_partija {
     width: 270px;
     height: 150px;
+}
+
+#lista_partija {
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+    font-size: 16px;
+    align-content: start;
 }
 
 .uvuceno {

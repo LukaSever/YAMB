@@ -21,6 +21,7 @@ if (sacuvanaIstorija)
     poslednjiPotez = JSON.parse(sacuvanaIstorija);
 else
     poslednjiPotez = [];
+let ukupnoPoena = 0;
 
 function zaglavlje1(tabela) {
     const novRed = tabela.insertRow();
@@ -645,6 +646,7 @@ function suma4(tabela) {
     const red16 = tabela.querySelector("#red-16");
     const poeni = red16.querySelector("#poeni");
     poeni.textContent = unosZaKonacno ? ukupno : '';
+    ukupnoPoena = ukupno;
 }
 
 function dodavanjeBrojeva(e) {
@@ -895,6 +897,9 @@ function novaPartija() {
         if (!obrisi)
             return;
 
+        if (partijaJeZavrsena() && !localStorage.getItem("ucitajIdPartije"))
+            sacuvajPartiju();
+
         const jambBaza = localStorage.getItem("jambBaza");
         const jambStanje = localStorage.getItem("jambStanje");
         const potez = localStorage.getItem("poslednjiPotez");
@@ -902,12 +907,22 @@ function novaPartija() {
             localStorage.setItem("prethodna_jambBaza", jambBaza);
         if (jambStanje != null)
             localStorage.setItem("prethodno_jambStanje", jambStanje);
+        else
+            localStorage.setItem("prethodno_jambStanje", JSON.stringify({
+                kocke: ['?', '?', '?', '?', '?', '?'],
+                zadrzi: [false, false, false, false, false, false],
+                brojBacanja: 0,
+                bacanjeUToku: false,
+                poslednjiPotez: [],
+                mozeUndo: false
+            }));
         if (potez != null)
             localStorage.setItem("prethodni_poslednjiPotez", potez);
 
         localStorage.removeItem("jambBaza");
         localStorage.removeItem("jambStanje");
         localStorage.removeItem("poslednjiPotez");
+        localStorage.removeItem("ucitajIdPartije");
         kocke = ['?', '?', '?', '?', '?', '?'];
         zadrzi = [false, false, false, false, false, false];
         brojBacanja = 0;
@@ -987,6 +1002,7 @@ const boxPodesavanja = document.getElementById("box_podesavanja");
 const dugmePravila = document.getElementById("pravila");
 const dugmeJezici = document.getElementById("jezici");
 const dugmeKontakt = document.getElementById("kontakt");
+const dugmePregledSacuvanihPartija = document.getElementById("pregled_sacuvanih_partija");
 const dugmeIzlaz = document.getElementById("izlaz");
 
 const boxPravila = document.getElementById("box_pravila");
@@ -994,6 +1010,7 @@ const boxObjasnjenje = document.getElementById("box_objasnjenje");
 const h2Pravila = document.getElementById("h2_pravila");
 const boxJezici = document.getElementById("box_jezici");
 const boxKontakt = document.getElementById("box_kontakt");
+const boxPregledSacuvanihPartija = document.getElementById("box_pregled_sacuvanih_partija");
 const tekstKontakt = document.getElementById("tekst_kontakt");
 
 if (dugmePravila) {
@@ -1023,6 +1040,14 @@ if (tekstKontakt) {
     tekstKontakt.placeholder = prevod[trenutniJezik].ui.poruka;
 }
 
+if (dugmePregledSacuvanihPartija) {
+    dugmePregledSacuvanihPartija.addEventListener("click", () => {
+        boxPodesavanja.classList.add("hidden");
+        boxPregledSacuvanihPartija.classList.remove("hidden");
+        prikaziPartije();
+    });
+}
+
 if (dugmeIzlaz) {
     dugmeIzlaz.addEventListener("click", () => {
         window.history.back();
@@ -1045,6 +1070,7 @@ dugmeNazadNaPodesavanja.forEach(dugme => {
         boxObjasnjenje.classList.add("hidden");
         h2Pravila.classList.add("hidden");
         boxKontakt.classList.add("hidden");
+        boxPregledSacuvanihPartija.classList.add("hidden");
     });
 });
 
@@ -1388,6 +1414,92 @@ if (dugmePrethodnaPartija) {
         sessionStorage.setItem("refres", "true");
         window.history.back();
     });
+}
+
+function partijaJeZavrsena() {
+    const celije = document.querySelectorAll(".sve_celije");
+    if (!celije.length)
+        return false;
+
+    for (const celija of celije)
+        if (celija.textContent.trim() === "")
+            return false;
+
+    return true;
+}
+
+function sacuvajPartiju() {
+    let lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
+
+    lista.push({
+        id: crypto.randomUUID(),
+        datum: Date.now(),
+        poeni: ukupnoPoena,
+        polja: localStorage.getItem("jambBaza")
+    });
+    localStorage.setItem("jambPartije", JSON.stringify(lista));
+}
+
+function prikaziPartije() {
+    const div = document.getElementById("lista_partija");
+    const lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
+
+    while (div.firstChild)
+        div.removeChild(div.firstChild);
+
+    ["datum", "vreme", "poeni"].forEach(kljuc => {
+        const element = document.createElement("div");
+        element.textContent = prevod[trenutniJezik].ui[kljuc];
+        div.appendChild(element);
+    });
+
+    lista.forEach(p => {
+        const d = new Date(p.datum);
+
+        const datum = d.toLocaleDateString(undefined, {
+            year: "numeric",
+            month: "2-digit",
+            day: "2-digit"
+        });
+
+        const vreme = d.toLocaleTimeString(undefined, {
+            hour: "2-digit",
+            minute: "2-digit"
+        });
+
+        const elementDatum = napravi(datum);
+        const elementVreme = napravi(vreme);
+        const elementPoeni = napravi(p.poeni);
+
+        elementDatum.addEventListener("click", () => ucitajPartiju(p.id));
+        elementVreme.addEventListener("click", () => ucitajPartiju(p.id));
+        elementPoeni.addEventListener("click", () => ucitajPartiju(p.id));
+
+        div.appendChild(elementDatum);
+        div.appendChild(elementVreme);
+        div.appendChild(elementPoeni);
+    });
+
+    function napravi(text, bold = false) {
+        const element = document.createElement("div");
+        element.textContent = text;
+        if (bold)
+            element.style.fontWeight = "bold";
+        return element;
+    }
+}
+
+function ucitajPartiju(id) {
+    let lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
+    let partija = lista.find(p => p.id === id);
+
+    if (!partija)
+        return;
+
+    localStorage.setItem("jambBaza", partija.polja);
+    localStorage.setItem("ucitajIdPartije", id);
+    sessionStorage.setItem("refres", "true");
+    window.history.back();
 }
 
 if ('serviceWorker' in navigator) {
