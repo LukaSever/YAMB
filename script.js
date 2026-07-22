@@ -1237,10 +1237,11 @@ document.getElementById("kockice")?.addEventListener("click", () => {
 
 /** @type {HTMLElement} */
 const modal = document.getElementById("poruka_kockice");
-if (modal)
+if (modal) {
     modal.addEventListener("click", () => {
         modal.classList.add("modal_sakriven");
-});
+    });
+}
 function prikaziPorukuKockice() {
     if (modal)
         modal.classList.remove("modal_sakriven");
