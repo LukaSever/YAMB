@@ -22,6 +22,10 @@ if (sacuvanaIstorija)
 else
     poslednjiPotez = [];
 let ukupnoPoena = 0;
+let sortiranjePrikaza = {
+    kolona: "datum",
+    smer: "opadajuce"
+};
 
 function zaglavlje1(tabela) {
     const novRed = tabela.insertRow();
@@ -1513,17 +1517,49 @@ function prikaziPartije() {
     const lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
 
     while (div.firstChild)
-        div.removeChild(div.firstChild);
+    div.removeChild(div.firstChild);
 
-    ["datum", "vreme", "poeni", ""].forEach(kljuc => {
-        const element = document.createElement("div");
-        if (kljuc)
-            element.textContent = prevod[trenutniJezik].ui[kljuc];
-        element.classList.add("zaglavlje_liste_rezultata");
-        div.appendChild(element);
+    const zaglavlja = [
+        { naziv: "datum", kljuc: "datum" },
+        { naziv: "vreme", kljuc: "vreme" },
+        { naziv: "poeni", kljuc: "poeni" },
+        { naziv: "", kljuc: "slika" }
+    ];
+
+    zaglavlja.forEach(z => {
+       const element = document.createElement("div");
+       if (z.naziv)
+           element.textContent = prevod[trenutniJezik].ui[z.naziv];
+       element.addEventListener("click", () => {
+           if (sortiranjePrikaza.kolona === z.kljuc)
+               sortiranjePrikaza.smer = sortiranjePrikaza.smer === "rastuce" ? "opadajuce" : "rastuce";
+           else {
+               sortiranjePrikaza.kolona = z.kljuc;
+               sortiranjePrikaza.smer = "opadajuce";
+           }
+           prikaziPartije();
+       });
+       element.classList.add("zaglavlje_liste_rezultata");
+       div.appendChild(element);
     });
 
-    [...lista].reverse().forEach(p => {
+    lista.sort((a, b) => {
+       let rezultat = 0;
+       if (sortiranjePrikaza.kolona === "datum")
+           rezultat = a.datum - b.datum;
+       else if (sortiranjePrikaza.kolona === "vreme") {
+           const va = new Date(a.datum).getHours() * 60 + new Date(a.datum).getMinutes();
+           const vb = new Date(b.datum).getHours() * 60 + new Date(b.datum).getMinutes();
+           rezultat = va - vb;
+       }
+       else if (sortiranjePrikaza.kolona === "poeni")
+           rezultat = a.poeni - b.poeni;
+       else if (sortiranjePrikaza.kolona === "slika")
+           rezultat = Number(!!a.slika) - Number(!!b.slika);
+       return sortiranjePrikaza.smer === "rastuce" ? rezultat : -rezultat;
+    });
+
+    lista.forEach(p => {
         const d = new Date(p.datum);
 
         const datum = d.toLocaleDateString(undefined, {
@@ -1569,7 +1605,6 @@ function prikaziPartije() {
         return element;
     }
 }
-
 function ucitajPartiju(id) {
     let lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
     let partija = lista.find(p => p.id === id);
