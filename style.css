@@ -52,7 +52,8 @@ table tr th:last-child {
     width: 100px;
 }
 
-#pozadina_prozora {
+#pozadina_prozora,
+#poruka_kockice {
     position: fixed;
     top: 0;
     left: 0;
@@ -65,13 +66,30 @@ table tr th:last-child {
 }
 #prozor {
     background-color: white;
+    border-radius: 8px;
     padding: 20px;
 }
 #prozor .dugme_tabela {
     width: 250px;
     margin: 10px 0;
     padding: 10px;
+    border-radius: 8px;
     border: none;
+}
+
+.modal_sakriven {
+    display: none !important;
+}
+
+.modal_sadrzaj {
+    background: white;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 320px;
+    width: 80%;
+    text-align: center;
+    color: black;
+    white-space: pre-line;
 }
 
 #suma-1 td, #suma-2 td, #suma-3 td {
