@@ -901,6 +901,7 @@ function novaPartija() {
         const jambStanje = localStorage.getItem("jambStanje");
         const potez = localStorage.getItem("poslednjiPotez");
         const partijaId = localStorage.getItem("partijaId");
+        const vidljivostKockeDugmici = localStorage.getItem("kockeDugmiciVidljivost");
         if (jambBaza != null)
             localStorage.setItem("prethodna_jambBaza", jambBaza);
         if (jambStanje != null)
@@ -920,6 +921,10 @@ function novaPartija() {
             localStorage.setItem("prethodna_partijaId", partijaId);
         else
             localStorage.removeItem("prethodna_partijaId");
+        if (vidljivostKockeDugmici != null)
+            localStorage.setItem("prethodna_kockeDugmiciVidljivost", vidljivostKockeDugmici);
+        else
+            localStorage.removeItem("prethodna_kockeDugmiciVidljivost");
 
         localStorage.removeItem("jambBaza");
         localStorage.removeItem("jambStanje");
@@ -1409,6 +1414,7 @@ if (dugmePrethodnaPartija) {
         const prethodnoStanje = localStorage.getItem("prethodno_jambStanje");
         const prethodniPoslednjiPotez = localStorage.getItem("prethodni_poslednjiPotez");
         const prethodnaPartijaId = localStorage.getItem("prethodna_partijaId");
+        const prethodnaKockeDugmiciVidljivost = localStorage.getItem("prethodna_kockeDugmiciVidljivost");
 
         if (prethodnaBaza == null || prethodnoStanje == null)
             return;
@@ -1417,6 +1423,7 @@ if (dugmePrethodnaPartija) {
         const trenutnoStanje = localStorage.getItem("jambStanje");
         const trenutniPoslednjiPotez = localStorage.getItem("poslednjiPotez");
         const trenutnaPartijaId = localStorage.getItem("partijaId");
+        const trenutnaKockeDugmiciVidljivost = localStorage.getItem("kockeDugmiciVidljivost");
 
         if (trenutnaBaza != null)
             localStorage.setItem("prethodna_jambBaza", trenutnaBaza);
@@ -1430,6 +1437,10 @@ if (dugmePrethodnaPartija) {
             localStorage.setItem("prethodna_partijaId", trenutnaPartijaId);
         else
             localStorage.removeItem("prethodna_partijaId");
+        if (trenutnaKockeDugmiciVidljivost != null)
+            localStorage.setItem("prethodna_kockeDugmiciVidljivost", trenutnaKockeDugmiciVidljivost);
+        else
+            localStorage.removeItem("prethodna_kockeDugmiciVidljivost");
 
         localStorage.setItem("jambBaza", prethodnaBaza);
         localStorage.setItem("jambStanje", prethodnoStanje);
@@ -1441,6 +1452,10 @@ if (dugmePrethodnaPartija) {
             localStorage.setItem("partijaId", prethodnaPartijaId);
         else
             localStorage.removeItem("partijaId");
+        if (prethodnaKockeDugmiciVidljivost != null)
+            localStorage.setItem("kockeDugmiciVidljivost", prethodnaKockeDugmiciVidljivost);
+        else
+            localStorage.removeItem("kockeDugmiciVidljivost");
 
         sessionStorage.setItem("refres", "true");
         window.history.back();
