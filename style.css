@@ -322,10 +322,16 @@ h2 {
 
 #lista_partija {
     display: grid;
-    grid-template-columns: 40% 30% 30%;
+    grid-template-columns: 37% 28% 20% 15%;
     font-size: 16px;
     align-content: start;
     gap: 8px 0;
+}
+
+#lista_partija > div {
+    min-height: 24px;
+    display: flex;
+    align-items: center;
 }
 
 .zaglavlje_liste_rezultata {

@@ -1492,11 +1492,14 @@ function sacuvajPartiju() {
     if (lista.some(p => p.id === partijaId))
         return;
 
+    const slika = localStorage.getItem("kockeDugmiciVidljivost") === "1" ? "static/images/previousGame/die.png" : "static/images/previousGame/hand.png";
+
     lista.push({
         id: partijaId,
         datum: Date.now(),
         poeni: ukupnoPoena,
-        polja: localStorage.getItem("jambBaza")
+        polja: localStorage.getItem("jambBaza"),
+        slika: slika
     });
 
     if (lista.length > 100)
@@ -1512,9 +1515,10 @@ function prikaziPartije() {
     while (div.firstChild)
         div.removeChild(div.firstChild);
 
-    ["datum", "vreme", "poeni"].forEach(kljuc => {
+    ["datum", "vreme", "poeni", ""].forEach(kljuc => {
         const element = document.createElement("div");
-        element.textContent = prevod[trenutniJezik].ui[kljuc];
+        if (kljuc)
+            element.textContent = prevod[trenutniJezik].ui[kljuc];
         element.classList.add("zaglavlje_liste_rezultata");
         div.appendChild(element);
     });
@@ -1536,14 +1540,25 @@ function prikaziPartije() {
         const elementDatum = napravi(datum);
         const elementVreme = napravi(vreme);
         const elementPoeni = napravi(p.poeni);
+        const elementSlika = document.createElement("div");
+        if (p.slika) {
+            const slika = document.createElement("img");
+            slika.src = p.slika;
+            slika.width = 24;
+            slika.height = 24;
+            elementSlika.appendChild(slika);
+        }
 
         elementDatum.addEventListener("click", () => ucitajPartiju(p.id));
         elementVreme.addEventListener("click", () => ucitajPartiju(p.id));
         elementPoeni.addEventListener("click", () => ucitajPartiju(p.id));
+        if (p.slika)
+            elementSlika.addEventListener("click", () => ucitajPartiju(p.id));
 
         div.appendChild(elementDatum);
         div.appendChild(elementVreme);
         div.appendChild(elementPoeni);
+        div.appendChild(elementSlika);
     });
 
     function napravi(text, bold = false) {
