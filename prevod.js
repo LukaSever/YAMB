@@ -3,7 +3,7 @@ const prevod = {
         ui: {
             nova_partija: "Nova partija",
             obrisi_sve: "Obriši sve",
-            vrati_se: "Odustani",
+            odustani: "Odustani",
             zameni_broj: "Zameni broj",
             podesavanja: "PODEŠAVANJA",
             pravila: "Pravila",
@@ -150,7 +150,7 @@ const prevod = {
         ui: {
             nova_partija: "New game",
             obrisi_sve: "Clear all",
-            vrati_se: "Cancel",
+            odustani: "Cancel",
             zameni_broj: "Replace number",
             podesavanja: "SETTINGS",
             pravila: "Rules",
@@ -297,7 +297,7 @@ const prevod = {
         ui: {
             nova_partija: "Nova igra",
             obrisi_sve: "Obriši sve",
-            vrati_se: "Odustani",
+            odustani: "Odustani",
             zameni_broj: "Zamijeni broj",
             podesavanja: "POSTAVKE",
             pravila: "Pravila",
@@ -444,7 +444,7 @@ const prevod = {
         ui: {
             nova_partija: "Nova partija",
             obrisi_sve: "Obriši sve",
-            vrati_se: "Odustani",
+            odustani: "Odustani",
             zameni_broj: "Zamijeni broj",
             podesavanja: "POSTAVKE",
             pravila: "Pravila",
@@ -591,7 +591,7 @@ const prevod = {
         ui: {
             nova_partija: "Nova partija",
             obrisi_sve: "Izbriši se",
-            vrati_se: "Otkaži",
+            odustani: "Otkaži",
             zameni_broj: "Zameni broj",
             podesavanja: "POSTAVKI",
             pravila: "Pravila",
@@ -738,7 +738,7 @@ const prevod = {
         ui: {
             nova_partija: "Nova igra",
             obrisi_sve: "Izbriši vse",
-            vrati_se: "Prekliči",
+            odustani: "Prekliči",
             zameni_broj: "Zamenjaj številko",
             podesavanja: "NASTAVITVE",
             pravila: "Pravila",
@@ -885,7 +885,7 @@ const prevod = {
         ui: {
             nova_partija: "Nova partija",
             obrisi_sve: "Obriši sve",
-            vrati_se: "Odustani",
+            odustani: "Odustani",
             zameni_broj: "Zamijeni broj",
             podesavanja: "PODEŠAVANJA",
             pravila: "Pravila",
