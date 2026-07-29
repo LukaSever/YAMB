@@ -151,6 +151,8 @@ document.addEventListener("DOMContentLoaded", function () {
         zvuk.load();
     }
 
+    centrirajSkrolPodesavanja();
+
     kockeDugmiciVidljivost = localStorage.getItem("kockeDugmiciVidljivost") === "1";
 
     const div = document.getElementById("igra")
@@ -1026,6 +1028,7 @@ const tekstKontakt = document.getElementById("tekst_kontakt");
 
 if (dugmePravila) {
     dugmePravila.addEventListener("click", () => {
+        centrirajSkrolPodesavanja();
         boxPodesavanja.classList.add("hidden");
         boxPravila.classList.remove("hidden");
         boxObjasnjenje.classList.remove("hidden");
@@ -1035,6 +1038,7 @@ if (dugmePravila) {
 
 if (dugmeJezici) {
     dugmeJezici.addEventListener("click", () => {
+        centrirajSkrolPodesavanja();
         boxPodesavanja.classList.add("hidden");
         boxJezici.classList.remove("hidden");
     });
@@ -1042,6 +1046,7 @@ if (dugmeJezici) {
 
 if (dugmeKontakt) {
     dugmeKontakt.addEventListener("click", () => {
+        centrirajSkrolPodesavanja();
         boxPodesavanja.classList.add("hidden");
         boxKontakt.classList.remove("hidden");
     });
@@ -1053,6 +1058,7 @@ if (tekstKontakt) {
 
 if (dugmePregledSacuvanihPartija) {
     dugmePregledSacuvanihPartija.addEventListener("click", () => {
+        centrirajSkrolPodesavanja();
         boxPodesavanja.classList.add("hidden");
         boxPregledSacuvanihPartija.classList.remove("hidden");
         prikaziPartije();
@@ -1087,7 +1093,7 @@ dugmeNazadNaPodesavanja.forEach(dugme => {
 
 document.querySelectorAll(".button_pravila").forEach(dugme => {
     dugme.addEventListener("click", () => {
-
+        centrirajSkrolPodesavanja();
         const id = dugme.id;
 
         boxPravila.classList.add("hidden");
@@ -1626,6 +1632,14 @@ function ucitajPartiju(id) {
     localStorage.setItem("partijaId", id);
     sessionStorage.setItem("refres", "true");
     window.history.back();
+}
+function centrirajSkrolPodesavanja() {
+    const body = document.getElementById("body_podesavanja");
+    if (!body)
+        return;
+    setTimeout(() => {
+        body.scrollLeft = (body.scrollWidth - body.clientWidth) / 2;
+    }, 0);
 }
 
 if ('serviceWorker' in navigator) {

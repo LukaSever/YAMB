@@ -28,6 +28,7 @@ table th, table td {
     font: 20px Arial, sans-serif;
     box-sizing: border-box;
 }
+
 .sve_celije {
     line-height: 2rem;
 }
@@ -64,11 +65,13 @@ table tr th:last-child {
     justify-content: center;
     align-items: center;
 }
+
 #prozor {
     background-color: white;
     border-radius: 8px;
     padding: 20px;
 }
+
 #prozor .dugme_tabela {
     width: 250px;
     margin: 10px 0;
@@ -106,9 +109,8 @@ table tr th:last-child {
     color: white;
 }
 
-
 @media(max-width: 580px) {
-    html, #body_igra{
+    html, #body_igra {
         margin: 0;
         padding: 0;
         height: 100%;
@@ -186,9 +188,11 @@ table tr th:last-child {
     table tr th:last-child{
         width: 45px;
     }
+
     table th, table td {
         font: 10px Arial, sans-serif;
     }
+
     .slika_celija {
         max-width: 100%;
         height: auto;
@@ -196,14 +200,26 @@ table tr th:last-child {
 }
 
 @media(max-width: 280px) {
-    html, #body_igra {
-        overflow: auto;
+    html {
+        overflow-x: auto;
+    }
+
+    #body_igra {
+        overflow-x: auto;
+        align-items: flex-start;
+    }
+
+    #igra {
+        justify-content: flex-start;
+        align-items: flex-start;
+        overflow-x: auto;
     }
 
     table {
         table-layout: auto;
         width: max-content;
         min-width: 100%;
+        margin: 0;
     }
 
     table th, table td {
@@ -214,6 +230,30 @@ table tr th:last-child {
 
     table tr {
         height: 35px;
+    }
+}
+
+@media(min-width: 281px) and (max-height: 560px) {
+    html, #body_igra {
+        overflow-y: auto;
+    }
+
+    #body_igra {
+        justify-content: flex-start;
+    }
+
+    #igra {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+    }
+
+    table {
+        height: auto;
+        margin: 0 auto;
     }
 }
 
@@ -298,6 +338,8 @@ h2 {
     letter-spacing: 1px;
     font: bold 30px Courier New, monospace;
     text-align: center;
+    width: min-content;
+    white-space: normal;
 }
 
 .opis,
@@ -307,7 +349,7 @@ h2 {
     padding: 10px;
     width: 80%;
     max-width: 400px;
-    max-height: 70vh;
+    max-height: 60vh;
     overflow: auto;
     border-radius: 5px;
     box-sizing: border-box;
@@ -350,11 +392,22 @@ h2 {
     margin-bottom: 5px;
 }
 
+#podesavanja,
+#box_podesavanja,
+#box_jezici,
+#box_pravila,
+#box_objasnjenje,
+#box_kontakt,
+#box_pregled_sacuvanih_partija {
+    position: relative;
+    overflow: visible;
+}
+
 .zatvori_sliku,
 .zatvori {
-    position: fixed;
-    top: 0.5%;
-    left: 91%;
+    position: absolute;
+    top: -10px;
+    right: 0;
     font-size: 2rem;
     color: white;
     background-color: transparent;
@@ -493,4 +546,81 @@ h2 {
     height: 100%;
     display: block;
     object-fit: cover;
+}
+
+#izlaz,
+.button_nazad,
+.nazad_na_podesavanja {
+    margin-bottom: 100px;
+}
+
+@media(max-width: 410px) {
+    #body_podesavanja {
+        overflow-x: auto;
+    }
+
+    #podesavanja,
+    #box_podesavanja,
+    #box_jezici,
+    #box_pravila,
+    #box_objasnjenje,
+    #box_kontakt,
+    #box_pregled_sacuvanih_partija {
+        gap: 10px;
+        margin-top: 5px;
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 90vh;
+        overflow-y: auto;
+        min-width: 205px;
+        width: max-content;
+    }
+
+    .opis,
+    #tekst_kontakt,
+    #lista_partija {
+        max-width: 400px;
+        min-width: 205px;
+    }
+
+    #lista_partija {
+        overflow: auto;
+        box-sizing: border-box;
+        min-width: 205px;
+    }
+
+    #lista_partija {
+        display: grid;
+        grid-template-columns: 90px 70px 40px 30px;
+        font-size: 16px;
+        align-content: start;
+        gap: 8px 0;
+    }
+}
+
+@media(max-height: 650px) {
+    #body_podesavanja {
+        overflow-x: auto;
+    }
+
+    #podesavanja,
+    #box_podesavanja,
+    #box_jezici,
+    #box_pravila,
+    #box_objasnjenje,
+    #box_kontakt,
+    #box_pregled_sacuvanih_partija {
+        margin-left: auto;
+        margin-right: auto;
+        max-height: 90vh;
+        overflow-y: auto;
+        min-width: 205px;
+        width: max-content;
+    }
+
+    .opis,
+    #tekst_kontakt,
+    #lista_partija {
+        min-height: 200px;
+    }
 }
