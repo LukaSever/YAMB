@@ -1,4 +1,4 @@
-const JAMB_CACHE = 'jamb-cache-v3';
+const JAMB_CACHE = 'jamb-cache-v4';
 const urlsToCache = [
     './',
     './index.html',
@@ -30,6 +30,8 @@ const urlsToCache = [
     './static/images/flags/Severna_Makedonija.png',
     './static/images/flags/Slovenija.png',
     './static/images/flags/Crna_Gora.png',
+    './static/images/previousGame/die.png',
+    './static/images/previousGame/hand.png',
     './static/mp3/najava.mp3'
 ];
 

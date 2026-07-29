@@ -1533,6 +1533,8 @@ function prikaziPartije() {
        const element = document.createElement("div");
        if (z.naziv)
            element.textContent = prevod[trenutniJezik].ui[z.naziv];
+       else
+           element.textContent = " ";
        element.addEventListener("click", () => {
            if (sortiranjePrikaza.kolona === z.kljuc)
                sortiranjePrikaza.smer = sortiranjePrikaza.smer === "rastuce" ? "opadajuce" : "rastuce";
@@ -1557,8 +1559,13 @@ function prikaziPartije() {
        }
        else if (sortiranjePrikaza.kolona === "poeni")
            rezultat = a.poeni - b.poeni;
-       else if (sortiranjePrikaza.kolona === "slika")
-           rezultat = Number(!!a.slika) - Number(!!b.slika);
+       else if (sortiranjePrikaza.kolona === "slika") {
+           const redosled = {
+               "static/images/previousGame/die.png" : 0,
+               "static/images/previousGame/hand.png" : 1
+           };
+           rezultat = (redosled[a.slika] ?? 999) - (redosled[b.slika] ?? 999);
+       }
        return sortiranjePrikaza.smer === "rastuce" ? rezultat : -rezultat;
     });
 
