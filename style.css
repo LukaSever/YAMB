@@ -365,7 +365,7 @@ h2 {
 
 #lista_partija {
     display: grid;
-    grid-template-columns: 37% 28% 20% 15%;
+    grid-template-columns: 32% 28% 25% 15%;
     font-size: 16px;
     align-content: start;
     gap: 8px 0;
@@ -375,6 +375,15 @@ h2 {
     min-height: 24px;
     display: flex;
     align-items: center;
+}
+
+#lista_partija > div:nth-child(4n + 2),
+#lista_partija > div:nth-child(4n + 3) {
+    justify-content: center;
+}
+
+#lista_partija > div:nth-child(4n) {
+    justify-content: flex-end;
 }
 
 .zaglavlje_liste_rezultata {
@@ -590,7 +599,7 @@ h2 {
 
     #lista_partija {
         display: grid;
-        grid-template-columns: 90px 70px 40px 30px;
+        grid-template-columns: 80px 70px 60px 40px;
         font-size: 16px;
         align-content: start;
         gap: 8px 0;
