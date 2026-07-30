@@ -272,8 +272,24 @@ table tr th:last-child {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 10px;
+    margin: 10px auto 0;
     gap: 20px;
+    max-width: 300px;
+    width: 100%;
+    position: relative;
+    overflow: visible;
+}
+
+.zatvori_sliku,
+.zatvori {
+    position: absolute;
+    top: -10px;
+    right: 0;
+    font-size: 2rem;
+    color: white;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
 }
 
 #box_zastave {
@@ -282,7 +298,7 @@ table tr th:last-child {
     "prvo prvo prvo"
     "ostalo1 ostalo2 ostalo3"
     "ostalo4 ostalo5 ostalo6";
-    grid-template-columns: repeat(3, 100px);
+    grid-template-columns: repeat(3, minmax(0, 100px));
     justify-content: center;
     justify-items: center;
     gap: 20px 10px;
@@ -317,16 +333,13 @@ table tr th:last-child {
 }
 
 .button_podesavanja,
-.button_pravila {
+.button_pravila,
+.button_objasnjenje {
     padding: 10px 0;
     border: none;
     border-radius: 5px;
     font: 20px Courier New, monospace;
     width: 270px;
-}
-
-.button_nazad {
-    width: 150px;
 }
 
 #box_objasnjenje {
@@ -348,8 +361,7 @@ h2 {
 #lista_partija {
     background-color: white;
     padding: 10px;
-    width: 80%;
-    max-width: 400px;
+    width: 270px;
     max-height: 60vh;
     overflow: auto;
     border-radius: 5px;
@@ -400,29 +412,6 @@ h2 {
 .uvuceno {
     display: inline-block;
     margin-bottom: 5px;
-}
-
-#podesavanja,
-#box_podesavanja,
-#box_jezici,
-#box_pravila,
-#box_objasnjenje,
-#box_kontakt,
-#box_pregled_sacuvanih_partija {
-    position: relative;
-    overflow: visible;
-}
-
-.zatvori_sliku,
-.zatvori {
-    position: absolute;
-    top: -10px;
-    right: 0;
-    font-size: 2rem;
-    color: white;
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
 }
 
 .hidden {
@@ -576,18 +565,18 @@ h2 {
     #box_objasnjenje,
     #box_kontakt,
     #box_pregled_sacuvanih_partija {
-        margin-left: auto;
-        margin-right: auto;
-        max-height: 90vh;
+        margin: 10px auto 0;
         overflow-y: auto;
-        min-width: 205px;
-        width: max-content;
+        min-width: 300px;
+        max-width: 300px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .opis,
     #tekst_kontakt,
     #lista_partija {
-        max-width: 400px;
+        width: 270px;
         min-width: 205px;
     }
 
@@ -618,12 +607,13 @@ h2 {
     #box_objasnjenje,
     #box_kontakt,
     #box_pregled_sacuvanih_partija {
-        margin-left: auto;
-        margin-right: auto;
-        max-height: 90vh;
+        margin: 10px auto 0;
         overflow-y: auto;
-        min-width: 205px;
-        width: max-content;
+        max-height: 100vh;
+        min-width: 300px;
+        max-width: 300px;
+        width: 100%;
+        box-sizing: border-box;
     }
 
     .opis,
