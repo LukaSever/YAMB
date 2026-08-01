@@ -910,31 +910,34 @@ function novaPartija() {
         const jambStanje = localStorage.getItem("jambStanje");
         const potez = localStorage.getItem("poslednjiPotez");
         const partijaId = localStorage.getItem("partijaId");
+        const lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
+        const partijaJeSacuvana = lista.some(p => p.id === partijaId);
         const vidljivostKockeDugmici = localStorage.getItem("kockeDugmiciVidljivost");
-        if (jambBaza != null)
-            localStorage.setItem("prethodna_jambBaza", jambBaza);
-        if (jambStanje != null)
-            localStorage.setItem("prethodno_jambStanje", jambStanje);
-        else
-            localStorage.setItem("prethodno_jambStanje", JSON.stringify({
-                kocke: ['?', '?', '?', '?', '?', '?'],
-                zadrzi: [false, false, false, false, false, false],
-                brojBacanja: 0,
-                bacanjeUToku: false,
-                poslednjiPotez: [],
-                mozeUndo: false
-            }));
-        if (potez != null)
-            localStorage.setItem("prethodni_poslednjiPotez", potez);
-        if (partijaId != null)
-            localStorage.setItem("prethodna_partijaId", partijaId);
-        else
-            localStorage.removeItem("prethodna_partijaId");
-        if (vidljivostKockeDugmici != null)
-            localStorage.setItem("prethodna_kockeDugmiciVidljivost", vidljivostKockeDugmici);
-        else
-            localStorage.removeItem("prethodna_kockeDugmiciVidljivost");
-
+        if (!partijaJeSacuvana) {
+            if (jambBaza != null)
+                localStorage.setItem("prethodna_jambBaza", jambBaza);
+            if (jambStanje != null)
+                localStorage.setItem("prethodno_jambStanje", jambStanje);
+            else
+                localStorage.setItem("prethodno_jambStanje", JSON.stringify({
+                    kocke: ['?', '?', '?', '?', '?', '?'],
+                    zadrzi: [false, false, false, false, false, false],
+                    brojBacanja: 0,
+                    bacanjeUToku: false,
+                    poslednjiPotez: [],
+                    mozeUndo: false
+                }));
+            if (potez != null)
+                localStorage.setItem("prethodni_poslednjiPotez", potez);
+            if (partijaId != null)
+                localStorage.setItem("prethodna_partijaId", partijaId);
+            else
+                localStorage.removeItem("prethodna_partijaId");
+            if (vidljivostKockeDugmici != null)
+                localStorage.setItem("prethodna_kockeDugmiciVidljivost", vidljivostKockeDugmici);
+            else
+                localStorage.removeItem("prethodna_kockeDugmiciVidljivost");
+        }
         localStorage.removeItem("jambBaza");
         localStorage.removeItem("jambStanje");
         localStorage.removeItem("poslednjiPotez");
@@ -988,6 +991,8 @@ function potvrdi(odgovor, tekstDugmeta1, tekstDugmeta2, boja) {
         dugme1.dataset.i18n = "ui.zameni_broj";
     else if (tekstDugmeta1 === "Prethodna partija")
         dugme1.dataset.i18n = "ui.prethodna_partija";
+    else if (tekstDugmeta1 === "Učitaj partiju")
+        dugme1.dataset.i18n = "ui.ucitaj_partiju";
     dugme1.style.backgroundColor = boja;
 
     const dugme2 = document.createElement("button");
@@ -1644,16 +1649,20 @@ function prikaziPartije() {
     }
 }
 function ucitajPartiju(id) {
-    let lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
-    let partija = lista.find(p => p.id === id);
+    potvrdi(function (ucitaj) {
+        let lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
+        let partija = lista.find(p => p.id === id);
 
-    if (!partija)
-        return;
+        if (!partija)
+            return;
 
-    localStorage.setItem("jambBaza", partija.polja);
-    localStorage.setItem("partijaId", id);
-    sessionStorage.setItem("refres", "true");
-    window.history.back();
+        novaPartija();
+
+        localStorage.setItem("jambBaza", partija.polja);
+        localStorage.setItem("partijaId", id);
+        sessionStorage.setItem("refres", "true");
+        window.history.back();
+    }, "Učitaj partiju", "Odustani", "yellow");
 }
 function centrirajSkrolPodesavanja() {
     const body = document.getElementById("body_podesavanja");
