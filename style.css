@@ -381,6 +381,7 @@ h2 {
     font-size: 16px;
     align-content: start;
     gap: 8px 0;
+    height: 300px;
 }
 
 #lista_partija > div {
@@ -571,12 +572,12 @@ h2 {
         max-width: 300px;
         width: 100%;
         box-sizing: border-box;
+        transform: translateY(-4px);
     }
 
     .opis,
     #tekst_kontakt,
     #lista_partija {
-        width: 270px;
         min-width: 205px;
     }
 
@@ -614,6 +615,7 @@ h2 {
         max-width: 300px;
         width: 100%;
         box-sizing: border-box;
+        transform: translateY(-4px);
     }
 
     .opis,

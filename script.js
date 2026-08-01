@@ -420,6 +420,9 @@ function div2(tabela) {
 }
 
 function baciKocke(dugme) {
+    if (partijaJeZavrsena())
+        return;
+
     poslednjiPotez = [];
     localStorage.removeItem("poslednjiPotez");
     mozeUndo = false;
@@ -1555,22 +1558,41 @@ function prikaziPartije() {
     });
 
     lista.sort((a, b) => {
-       let rezultat = 0;
-       if (sortiranjePrikaza.kolona === "datum")
-           rezultat = a.datum - b.datum;
-       else if (sortiranjePrikaza.kolona === "vreme") {
-           const va = new Date(a.datum).getHours() * 60 + new Date(a.datum).getMinutes();
-           const vb = new Date(b.datum).getHours() * 60 + new Date(b.datum).getMinutes();
-           rezultat = va - vb;
+        let rezultat = 0;
+        const datumA = a.datum;
+        const datumB = b.datum;
+        const vremeA = new Date(a.datum).getHours() * 60 + new Date(a.datum).getMinutes();
+        const vremeB = new Date(b.datum).getHours() * 60 + new Date(b.datum).getMinutes();
+        const redosled = {
+            "static/images/previousGame/die.png" : 0,
+            "static/images/previousGame/hand.png" : 1
+        };
+
+       if (sortiranjePrikaza.kolona === "datum") {
+           rezultat = datumA - datumB;
+           if (rezultat === 0)
+               rezultat = vremeA - vremeB;
        }
-       else if (sortiranjePrikaza.kolona === "poeni")
+       else if (sortiranjePrikaza.kolona === "vreme") {
+           rezultat = vremeA - vremeB;
+           if (rezultat === 0)
+               rezultat = datumA - datumB;
+       }
+       else if (sortiranjePrikaza.kolona === "poeni") {
            rezultat = a.poeni - b.poeni;
+           if (rezultat === 0) {
+               rezultat = datumA - datumB;
+               if (rezultat === 0)
+                   rezultat = vremeA - vremeB;
+           }
+       }
        else if (sortiranjePrikaza.kolona === "slika") {
-           const redosled = {
-               "static/images/previousGame/die.png" : 0,
-               "static/images/previousGame/hand.png" : 1
-           };
            rezultat = (redosled[a.slika] ?? 999) - (redosled[b.slika] ?? 999);
+           if (rezultat === 0) {
+               rezultat = datumA - datumB;
+               if (rezultat === 0)
+                   rezultat = vremeA - vremeB;
+           }
        }
        return sortiranjePrikaza.smer === "rastuce" ? rezultat : -rezultat;
     });
