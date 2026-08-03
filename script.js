@@ -913,9 +913,12 @@ function novaPartija() {
         const lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
         const partijaJeSacuvana = lista.some(p => p.id === partijaId);
         const vidljivostKockeDugmici = localStorage.getItem("kockeDugmiciVidljivost");
+        const vidljivostJePromenjena = vidljivostKockeDugmici !== localStorage.getItem("prethodna_kockeDugmiciVidljivost");
         if (!partijaJeSacuvana) {
             if (jambBaza != null)
                 localStorage.setItem("prethodna_jambBaza", jambBaza);
+            else if (vidljivostJePromenjena)
+                localStorage.setItem("prethodna_jambBaza", JSON.stringify([]));
             if (jambStanje != null)
                 localStorage.setItem("prethodno_jambStanje", jambStanje);
             else
@@ -949,6 +952,15 @@ function novaPartija() {
         poslednjiPotez = [];
         mozeUndo = false;
         localStorage.setItem("partijaId", crypto.randomUUID());
+        if (localStorage.getItem("ucitanaSacuvanaPartija") === "true") {
+            const prethodnaVidljivost = localStorage.getItem("prethodna_kockeDugmiciVidljivost");
+            localStorage.setItem("kockeDugmiciVidljivost", prethodnaVidljivost);
+            if (prethodnaVidljivost === "1")
+                prikaziKockeDugmice();
+            else
+                sakrijKockeDugmice();
+            localStorage.removeItem("ucitanaSacuvanaPartija");
+        }
         prikaziKocke();
         azurirajBacanjeUI();
 
@@ -1450,25 +1462,30 @@ if (dugmePrethodnaPartija) {
             const trenutnoStanje = localStorage.getItem("jambStanje");
             const trenutniPoslednjiPotez = localStorage.getItem("poslednjiPotez");
             const trenutnaPartijaId = localStorage.getItem("partijaId");
+            const lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
+            const partijaJeSacuvana = lista.some(p => p.id === trenutnaPartijaId);
             const trenutnaKockeDugmiciVidljivost = localStorage.getItem("kockeDugmiciVidljivost");
-
-            if (trenutnaBaza != null)
-                localStorage.setItem("prethodna_jambBaza", trenutnaBaza);
-            if (trenutnoStanje != null)
-                localStorage.setItem("prethodno_jambStanje", trenutnoStanje);
-            if (trenutniPoslednjiPotez != null)
-                localStorage.setItem("prethodni_poslednjiPotez", trenutniPoslednjiPotez);
-            else
-                localStorage.removeItem("prethodni_poslednjiPotez");
-            if (trenutnaPartijaId != null)
-                localStorage.setItem("prethodna_partijaId", trenutnaPartijaId);
-            else
-                localStorage.removeItem("prethodna_partijaId");
-            if (trenutnaKockeDugmiciVidljivost != null)
-                localStorage.setItem("prethodna_kockeDugmiciVidljivost", trenutnaKockeDugmiciVidljivost);
-            else
-                localStorage.removeItem("prethodna_kockeDugmiciVidljivost");
-
+            const vidljivostJePromenjena = trenutnaKockeDugmiciVidljivost !== prethodnaKockeDugmiciVidljivost;
+            if (!partijaJeSacuvana) {
+                if (trenutnaBaza != null)
+                    localStorage.setItem("prethodna_jambBaza", trenutnaBaza);
+                else if (vidljivostJePromenjena)
+                    localStorage.setItem("prethodna_jambBaza", JSON.stringify([]));
+                if (trenutnoStanje != null)
+                    localStorage.setItem("prethodno_jambStanje", trenutnoStanje);
+                if (trenutniPoslednjiPotez != null)
+                    localStorage.setItem("prethodni_poslednjiPotez", trenutniPoslednjiPotez);
+                else
+                    localStorage.removeItem("prethodni_poslednjiPotez");
+                if (trenutnaPartijaId != null)
+                    localStorage.setItem("prethodna_partijaId", trenutnaPartijaId);
+                else
+                    localStorage.removeItem("prethodna_partijaId");
+                if (trenutnaKockeDugmiciVidljivost != null)
+                    localStorage.setItem("prethodna_kockeDugmiciVidljivost", trenutnaKockeDugmiciVidljivost);
+                else
+                    localStorage.removeItem("prethodna_kockeDugmiciVidljivost");
+            }
             localStorage.setItem("jambBaza", prethodnaBaza);
             localStorage.setItem("jambStanje", prethodnoStanje);
             if (prethodniPoslednjiPotez != null)
@@ -1648,22 +1665,50 @@ function prikaziPartije() {
         return element;
     }
 }
+
 function ucitajPartiju(id) {
-    potvrdi(function (ucitaj) {
-        let lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
-        let partija = lista.find(p => p.id === id);
+    let lista = JSON.parse(localStorage.getItem("jambPartije")) || [];
+    let partija = lista.find(p => p.id === id);
 
-        if (!partija)
-            return;
+    if (!partija)
+        return;
 
-        novaPartija();
+    const trenutnaPartijaId = localStorage.getItem("partijaId");
+    const trenutnaPartijaJeSacuvana = lista.some(p => p.id === trenutnaPartijaId);
 
-        localStorage.setItem("jambBaza", partija.polja);
-        localStorage.setItem("partijaId", id);
-        sessionStorage.setItem("refres", "true");
-        window.history.back();
-    }, "Učitaj partiju", "Odustani", "yellow");
+    if (!trenutnaPartijaJeSacuvana) {
+        const trenutnaBaza = localStorage.getItem("jambBaza");
+        const trenutnoStanje = localStorage.getItem("jambStanje");
+        const trenutniPoslednjiPotez = localStorage.getItem("poslednjiPotez");
+
+        if (trenutnaBaza != null)
+            localStorage.setItem("prethodna_jambBaza", trenutnaBaza);
+        else
+            localStorage.setItem("prethodna_jambBaza", JSON.stringify([]));
+        if (trenutnoStanje != null)
+            localStorage.setItem("prethodno_jambStanje", trenutnoStanje);
+        if (trenutniPoslednjiPotez != null)
+            localStorage.setItem("prethodni_poslednjiPotez", trenutniPoslednjiPotez);
+        else
+            localStorage.removeItem("prethodni_poslednjiPotez");
+        if (trenutnaPartijaId != null)
+            localStorage.setItem("prethodna_partijaId", trenutnaPartijaId);
+        else
+            localStorage.removeItem("prethodna_partijaId");
+    }
+
+    if (localStorage.getItem("ucitanaSacuvanaPartija") !== "true")
+        localStorage.setItem("prethodna_kockeDugmiciVidljivost", localStorage.getItem("kockeDugmiciVidljivost"));
+    localStorage.setItem("ucitanaSacuvanaPartija", "true");
+    localStorage.setItem("kockeDugmiciVidljivost", "0");
+    localStorage.setItem("jambBaza", partija.polja);
+    localStorage.setItem("partijaId", id);
+    localStorage.removeItem("jambStanje");
+    localStorage.removeItem("poslednjiPotez");
+    sessionStorage.setItem("refres", "true");
+    window.history.back();
 }
+
 function centrirajSkrolPodesavanja() {
     const body = document.getElementById("body_podesavanja");
     if (!body)
