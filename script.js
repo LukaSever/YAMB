@@ -429,12 +429,14 @@ function baciKocke(dugme) {
 
     if (bacanjeUToku)
         return;
-    bacanjeUToku = true;
 
-    if (brojBacanja >= 3) {
-        bacanjeUToku = false;
+    if (brojBacanja >= 3)
         return;
-    }
+
+    if (ostaloSamoPoljeURucnojKoloni() && brojBacanja >= 1)
+        return;
+
+    bacanjeUToku = true;
 
     dugme.textContent = (brojBacanja + 1).toString();
 
@@ -1517,6 +1519,39 @@ function partijaJeZavrsena() {
             return false;
 
     return true;
+}
+
+function ostaloSamoPoljeURucnojKoloni() {
+    const rucna = [
+        "celijaDiv1-5",
+        "celijaDiv2-85",
+        "celijaDiv2-95",
+        "celijaDiv3-5"
+    ];
+
+    const o = [
+        "celijaDiv1-9",
+        "celijaDiv2-89",
+        "celijaDiv2-99",
+        "celijaDiv3-9"
+    ];
+
+    const sveCelije = [...document.querySelectorAll(".sve_celije")];
+    const postojiPraznoPoljeURucnojKoloni = sveCelije.some(celija =>
+        rucna.some(cls => celija.classList.contains(cls)) && celija.textContent.trim() === ""
+    );
+
+    if (!postojiPraznoPoljeURucnojKoloni)
+        return false;
+
+    return sveCelije.every(celija => {
+        if (rucna.some(cls => celija.classList.contains(cls)))
+            return true;
+        if (o.some(cls => celija.classList.contains(cls)))
+            return true;
+        return celija.textContent.trim() !== "";
+    });
+
 }
 
 function sacuvajPartiju() {
